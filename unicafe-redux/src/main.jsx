@@ -1,36 +1,56 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-import { createStore } from 'redux'
-import reducer from './reducer'
+import { createStore } from "redux";
+import reducer from "./reducer";
 
-const store = createStore(reducer)
+const store = createStore(reducer);
 
 const App = () => {
-  const good = () => {
+  const addGood = () => {
     store.dispatch({
-      type: 'GOOD'
-    })
-  }
+      type: "GOOD",
+    });
+  };
+
+  const addOk = () => {
+    store.dispatch({
+      type: "OK",
+    });
+  };
+
+  const addBad = () => {
+    store.dispatch({
+      type: "BAD",
+    });
+  };
+
+  const reset = () => {
+    store.dispatch({
+      type: "ZERO",
+    });
+  };
+
+  const { good, ok, bad } = store.getState();
 
   return (
     <div>
-      <button onClick={good}>good</button> 
-      <button>ok</button> 
-      <button>bad</button>
-      <button>reset stats</button>
-      <div>good {store.getState().good}</div>
-      <div>ok</div>
-      <div>bad</div>
+      <button onClick={addGood}>good</button>
+      <button onClick={addOk}>ok</button>
+      <button onClick={addBad}>bad</button>
+      <button onClick={reset}>reset stats</button>
+      <div>good {good}</div>
+      <div>ok {ok}</div>
+      <div>bad {bad}</div>
     </div>
-  )
-}
+  );
+};
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const renderApp = () => {
-  root.render(<App />)
-}
+  root.render(<App />);
+};
 
-renderApp()
-store.subscribe(renderApp)
+renderApp();
+store.subscribe(renderApp);
