@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import Anecdotes from "./components/Anecdotes";
-import NewAnecdote from "./components/NewAnecdote";
+import AnecdoteForm from "./components/AnecdoteForm";
+import AnecdoteList from "./components/AnecdoteList";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -11,8 +11,8 @@ const App = () => {
 
   return (
     <div>
-      <Anecdotes />
-      <NewAnecdote />
+      <AnecdoteList />
+      <AnecdoteForm />
     </div>
   );
 };

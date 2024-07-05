@@ -13,7 +13,7 @@ const Anecdote = ({ anecdote, vote }) => {
   );
 };
 
-const Anecdotes = () => {
+const AnecdoteList = () => {
   const dispatch = useDispatch();
   const anecdotes = useSelector((state) => state);
 
@@ -32,4 +32,4 @@ const Anecdotes = () => {
     </div>
   );
 };
-export default Anecdotes;
+export default AnecdoteList;
