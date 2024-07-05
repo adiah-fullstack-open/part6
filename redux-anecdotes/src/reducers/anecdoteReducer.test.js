@@ -23,4 +23,22 @@ describe("anecdoteReducer", () => {
       votes: 1,
     });
   });
+
+  test("returns new state with action ADD_ANECDOTE", () => {
+    const state = [];
+    const action = {
+      type: "ADD_ANECDOTE",
+      payload: {
+        content: "Eat sleep react",
+        id: 1,
+        votes: 0,
+      },
+    };
+
+    deepFreeze(state);
+    const newState = anecdoteReducer(state, action);
+
+    expect(newState).toHaveLength(1);
+    expect(newState).toContainEqual(action.payload);
+  });
 });

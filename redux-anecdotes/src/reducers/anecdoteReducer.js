@@ -31,15 +31,30 @@ const reducer = (state = initialState, action) => {
       return state.map((anecdote) =>
         anecdote.id !== id ? anecdote : changedAnecdote
       );
+    case "ADD_ANECDOTE":
+      return [...state, action.payload];
     default:
       return state;
   }
 };
 
+const generateId = () => Number((Math.random() * 1000000).toFixed(0));
+
 export const vote = (id) => {
   return {
     type: "VOTE",
     payload: { id },
+  };
+};
+
+export const createAnecdote = (content) => {
+  return {
+    type: "ADD_ANECDOTE",
+    payload: {
+      content,
+      id: generateId(),
+      votes: 0,
+    },
   };
 };
 
