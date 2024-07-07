@@ -30,18 +30,6 @@ export const createAnecdote = (content) => {
   };
 };
 
-// vote(state, action) {
-//       const id = action.payload;
-//       const anecdoteToChange = state.find((a) => a.id === id);
-//       const changedAnecdote = {
-//         ...anecdoteToChange,
-//         votes: anecdoteToChange.votes + 1,
-//       };
-//       return state.map((anecdote) =>
-//         anecdote.id !== id ? anecdote : changedAnecdote
-//       );
-//     },
-
 export const vote = (id) => {
   return async (dispatch) => {
     const anecdotes = await anecdoteService.getAll();
