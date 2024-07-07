@@ -5,21 +5,6 @@ const anecdoteSlice = createSlice({
   name: "anecdotes",
   initialState: [],
   reducers: {
-    // createAnecdote(state, action) {
-    //   state.push(action.payload);
-    // },
-
-    vote(state, action) {
-      const id = action.payload;
-      const anecdoteToChange = state.find((a) => a.id === id);
-      const changedAnecdote = {
-        ...anecdoteToChange,
-        votes: anecdoteToChange.votes + 1,
-      };
-      return state.map((anecdote) =>
-        anecdote.id !== id ? anecdote : changedAnecdote
-      );
-    },
     appendAnecdote(state, action) {
       state.push(action.payload);
     },
@@ -29,7 +14,7 @@ const anecdoteSlice = createSlice({
   },
 });
 
-export const { vote, appendAnecdote, setAnecdotes } = anecdoteSlice.actions;
+export const { appendAnecdote, setAnecdotes } = anecdoteSlice.actions;
 
 export const initializeAnecdotes = () => {
   return async (dispatch) => {
@@ -42,6 +27,41 @@ export const createAnecdote = (content) => {
   return async (dispatch) => {
     const newAnecdote = await anecdoteService.createNew(content);
     dispatch(appendAnecdote(newAnecdote));
+  };
+};
+
+// vote(state, action) {
+//       const id = action.payload;
+//       const anecdoteToChange = state.find((a) => a.id === id);
+//       const changedAnecdote = {
+//         ...anecdoteToChange,
+//         votes: anecdoteToChange.votes + 1,
+//       };
+//       return state.map((anecdote) =>
+//         anecdote.id !== id ? anecdote : changedAnecdote
+//       );
+//     },
+
+export const vote = (id) => {
+  return async (dispatch) => {
+    const anecdotes = await anecdoteService.getAll();
+    const anecdoteToChange = anecdotes.find((a) => a.id === id);
+
+    const updatedAnecdote = await anecdoteService.addVote(
+      {
+        ...anecdoteToChange,
+        votes: anecdoteToChange.votes + 1,
+      },
+      id
+    );
+
+    dispatch(
+      setAnecdotes(
+        anecdotes.map((anecdote) =>
+          anecdote.id !== id ? anecdote : updatedAnecdote
+        )
+      )
+    );
   };
 };
 
